@@ -9,7 +9,64 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+	
+
 <body>
 	<img id="gosImg" src="https://www.lordsmobilecartograph.ru/Maps/K1269Map.png" alt="Map" class="responsive">
+	
+	<script>
+    /*Thanks to https://www.w3schools.com/howto/howto_js_image_zoom.asp !*/
+    function showPos(imgID) {
+        var img, lens;
+        img = document.getElementById(imgID);
+        /*create lens:*/
+        lens = document.createElement("DIV");
+        lens.setAttribute("class", "img-pos-wnd");
+        /*insert lens:*/
+        img.parentElement.insertBefore(lens, img);
+        /*execute a function when someone moves the cursor over the image, or the lens:*/
+        lens.addEventListener("mousemove", moveLens);
+        img.addEventListener("mousemove", moveLens);
+        /*and also for touch screens:*/
+        lens.addEventListener("touchmove", moveLens);
+        img.addEventListener("touchmove", moveLens);
+        function moveLens(e) {
+            var pos, x, y;
+            /*prevent any other actions that may occur when moving over the image:*/
+            e.preventDefault();
+            /*get the cursor's x and y positions:*/
+            pos = getCursorPos(e);
+            /*calculate the position of the lens:*/
+            x = pos.x - (lens.offsetWidth / 2) + (lens.offsetWidth / 2);
+            y = pos.y - (lens.offsetHeight / 2) + (lens.offsetHeight / 2);
+            /*prevent the lens from being positioned outside the image:*/
+            if (x > img.width - lens.offsetWidth + 100) { x = img.width - lens.offsetWidth; }
+            if (x < 0) { x = 0; }
+            if (y > img.height - lens.offsetHeight + 30) { y = img.height - lens.offsetHeight; }
+            if (y < 0) { y = 0; }
+            /*set the position of the lens:*/
+            lens.style.left = x + "px";
+            lens.style.top = y + "px";
+            tX = x / (img.width / 512);
+            tY = y / (img.height / 1024);
+            lens.textContent = (tX | 0) + ";" + (tY | 0);
+        }
+        function getCursorPos(e) {
+            var a, x = 0, y = 0;
+            e = e || window.event;
+            /*get the x and y positions of the image:*/
+            a = img.getBoundingClientRect();
+            /*calculate the cursor's x and y coordinates, relative to the image:*/
+            x = e.pageX - a.left;
+            y = e.pageY - a.top;
+            /*consider any page scrolling:*/
+            x = x - window.pageXOffset;
+            y = y - window.pageYOffset;
+            return { x: x, y: y };
+        }
+    }
+
+    showPos("gosImg");
+</script>
 </body>
 </html>
