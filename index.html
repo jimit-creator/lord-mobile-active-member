@@ -30,11 +30,11 @@
         /*insert lens:*/
         img.parentElement.insertBefore(lens, img);
         /*execute a function when someone moves the cursor over the image, or the lens:*/
-        lens.addEventListener("mousemove", moveLens);
-        img.addEventListener("mousemove", moveLens);
+        //lens.addEventListener("mousemove", moveLens);
+        //img.addEventListener("mousemove", moveLens);
         /*and also for touch screens:*/
-        lens.addEventListener("touchmove", moveLens);
-        img.addEventListener("touchmove", moveLens);
+        lens.addEventListener("click", moveLens);
+        img.addEventListener("click", moveLens);
         function moveLens(e) {
             var pos, x, y;
             /*prevent any other actions that may occur when moving over the image:*/
