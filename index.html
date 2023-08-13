@@ -19,6 +19,8 @@
     function showPos(imgID) {
         var img, lens;
         img = document.getElementById(imgID);
+	    console.log("img.width",img.width);
+	    console.log("img.height",img.height);
         /*create lens:*/
         lens = document.createElement("DIV");
         lens.setAttribute("class", "img-pos-wnd");
