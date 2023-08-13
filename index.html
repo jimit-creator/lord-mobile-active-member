@@ -51,6 +51,8 @@
             lens.style.top = y + "px";
             tX = x / (img.width / 512);
             tY = y / (img.height / 1024);
+		console.log("tX",tX);
+		console.log("tY",tY);
             lens.textContent = (tX | 0) + ";" + (tY | 0);
         }
         function getCursorPos(e) {
